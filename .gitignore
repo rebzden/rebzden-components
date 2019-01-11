@@ -64,4 +64,4 @@ typings/
 .idea
 
 # build
-build
+build/
