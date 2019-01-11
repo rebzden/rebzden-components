@@ -64,7 +64,7 @@
     "build-lib": "tsc --p tsconfig.lib.json",
     "test": "node scripts/test.js",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public -o docs"
   },
   "eslintConfig": {
     "extends": "react-app"
