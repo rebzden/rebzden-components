@@ -2,18 +2,27 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "target": "es6",
-    "module": "ESNext",
+    "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "removeComments": true,
-    "declaration": true,
-    "noImplicitAny": false,
     "sourceMap": true,
     "jsx": "react",
-    "keyofStringsOnly": true
+    "rootDir": "./src",
+    "keyofStringsOnly": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "outDir": "./lib"
   },
   "include": [
-    "src/index.tsx"
+    "src/index.ts"
   ],
   "exclude": [
     "**/*.test.ts*"

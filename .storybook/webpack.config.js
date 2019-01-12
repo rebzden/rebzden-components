@@ -1,4 +1,9 @@
+const path = require('path');
 module.exports = (baseConfig, env, config) => {
+  config.resolve.modules = [
+    ...(config.resolve.modules || []),
+    path.resolve(__dirname, '../src')
+  ];
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
     loader: require.resolve("babel-loader"),
@@ -7,5 +12,6 @@ module.exports = (baseConfig, env, config) => {
     }
   });
   config.resolve.extensions.push(".ts", ".tsx");
+  
   return config;
 };
