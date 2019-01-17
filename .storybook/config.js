@@ -1,23 +1,22 @@
 import { addDecorator, configure } from "@storybook/react";
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { themes } from "../src/themes";
-import { select,withKnobs } from "@storybook/addon-knobs";
+import {DefaultTheme,DarkTheme} from "../src/presets";
+import { withThemes } from 'storybook-styled-components'
 
 const req = require.context("../src/components", true, /\.stories\.js$/);
-const label = "Theme";
-const options = {
-  Default: "default",
-  Dark: "dark"
-};
-const defaultValue = "default";
-const groupId = "THEME_SELECT";
+
+const themes = {
+  'Default theme': DefaultTheme,
+  'Dark Theme': DarkTheme,
+}
+
+// now add the decorator
+addDecorator(withThemes(themes));
+
+// done!
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
-addDecorator((story, context) => {
-  const storyWithKnobs = withKnobs(story, context)
-  const theme = select(label, options, defaultValue, groupId);
-  return <ThemeProvider theme={themes[theme]}>{storyWithKnobs}</ThemeProvider>;
-});
+
 configure(loadStories, module);

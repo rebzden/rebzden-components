@@ -1,4 +1,3 @@
-
 export interface IPadding {
     none: string;
     small: string;

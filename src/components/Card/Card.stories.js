@@ -2,16 +2,16 @@ import React from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import {Button} from './';
+import {Card} from './';
 
-storiesOf("Button", module)
+storiesOf("Card", module)
   .add("with text", () => (
-    <Button onClick={action("clicked")}>Hello Button</Button>
+    <Card>Hello Button</Card>
   ))
   .add("with some emoji", () => (
-    <Button onClick={action("clicked")}>
+    <Card onClick={action("clicked")}>
       <span role="img" aria-label="so cool">
         😀 😎 👍 💯
       </span>
-    </Button>
+    </Card>
   ));
