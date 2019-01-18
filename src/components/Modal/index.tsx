@@ -48,7 +48,6 @@ export class Modal extends React.Component<Props> {
     this.root.addEventListener("click", this.handleBackgroundClick);
   }
   handleBackgroundClick = (event: MouseEvent) => {
-      console.log(event.target,event.target == this.background.current);
     if (event.target === this.background.current) {
       this.props.onClose();
       event.stopPropagation();

@@ -8,7 +8,7 @@ import { Row } from "./Row";
 storiesOf("Grid", module)
   .add("with text", () => (
     <Row>
-      <Col onClick={action("clicked")}>Hello Button</Col>
+      <Col offset={12} onClick={action("clicked")}>Hello Button</Col>
     </Row>
   ))
   .add("with some emoji", () => (
