@@ -7,8 +7,9 @@ import { Row } from "./Row";
 
 storiesOf("Grid", module)
   .add("with text", () => (
-    <Row>
-      <Col offset={12} onClick={action("clicked")}>Hello Button</Col>
+    <Row flex>
+      <Col sm={24} md={6} lg={12} smBreak={300}onClick={action("clicked")}>Hello Button</Col>
+      <Col sm={24} md={6} lg={12} onClick={action("clicked")}>Hello Button</Col>
     </Row>
   ))
   .add("with some emoji", () => (
