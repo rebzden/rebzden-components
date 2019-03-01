@@ -1,36 +1,28 @@
 import styled from "../../styled";
+import { ColorType } from '../../presets/theme';
 
-const StyledButton = styled.button`
+export interface IButton {
+  type?: ColorType;
+}
+const StyledButton = styled.button<IButton>`
   padding-bottom: ${props => props.theme.padding.none};
   padding-left: ${props => props.theme.padding.big};
   padding-right: ${props => props.theme.padding.big};
   padding-top: ${props => props.theme.padding.none};
   align-items: flex-start;
-  background-color: rgb(24, 144, 255);
+  background-color: ${props => props.theme.color.primary.main};
   background-image: none;
-  border-bottom-color: rgb(24, 144, 255);
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-radius: 4px;
   border-image-outset: 0px;
   border-image-repeat: stretch;
   border-image-slice: 100%;
   border-image-source: none;
-  border-left-color: rgb(24, 144, 255);
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-right-color: rgb(24, 144, 255);
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-top-color: rgb(24, 144, 255);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-top-style: solid;
-  border-top-width: 1px;
+  border-width: 1px;
+  border-color: ${props => props.theme.color.primary.main};
+  border-style: solid;
   box-shadow: rgba(0, 0, 0, 0.043) 0px 2px 0px 0px;
   box-sizing: border-box;
-  color: rgb(255, 255, 255);
+  color: ${props => props.theme.color.primary.text};
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -48,11 +40,10 @@ const StyledButton = styled.button`
   margin-left: 0px;
   margin-right: 8px;
   margin-top: 0px;
-  outline-color: rgb(255, 255, 255);
+  outline-color: ${props => props.theme.color.primary.main};
   outline-style: none;
   outline-width: 0px;
-  overflow-x: visible;
-  overflow-y: visible;
+  overflow: visible;
   position: relative;
   text-align: center;
   text-indent: 0px;

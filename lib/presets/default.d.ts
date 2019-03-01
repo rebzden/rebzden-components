@@ -1,2 +1,2 @@
-import { ITheme } from "./theme";
-export declare const DefaultTheme: ITheme;
+import { Theme } from "./theme";
+export declare const DefaultTheme: Theme;

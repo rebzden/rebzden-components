@@ -1,5 +1,5 @@
-import styled, { ThemeProvider } from "./styled";
+import styled from "./styled";
 export * from "./components";
 export { DarkTheme, DefaultTheme } from "./presets";
-export { ThemeProvider };
+export { ThemeProvider, css, keyframes } from "./styled";
 export default styled;

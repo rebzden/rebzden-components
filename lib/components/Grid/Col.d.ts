@@ -1,16 +1,18 @@
-interface ColProps {
+interface ColSetting {
     span?: number;
     order?: number;
     offset?: number;
     push?: number;
     pull?: number;
     hidden?: boolean;
-    xs?: number | ColProps;
-    sm?: number | ColProps;
-    md?: number | ColProps;
-    lg?: number | ColProps;
-    xl?: number | ColProps;
-    xxl?: number | ColProps;
+}
+interface ColProps extends ColSetting {
+    xs?: number | ColSetting;
+    sm?: number | ColSetting;
+    md?: number | ColSetting;
+    lg?: number | ColSetting;
+    xl?: number | ColSetting;
+    xxl?: number | ColSetting;
     xsBreak?: number;
     smBreak?: number;
     mdBreak?: number;
@@ -18,5 +20,5 @@ interface ColProps {
     xlBreak?: number;
     xxlBreak?: number;
 }
-export declare const Col: import("styled-components").StyledComponent<"div", import("../../presets/theme").ITheme, ColProps, never>;
+export declare const Col: import("styled-components").StyledComponent<"div", import("../../presets/theme").Theme, ColProps, never>;
 export {};

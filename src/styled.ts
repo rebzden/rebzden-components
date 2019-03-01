@@ -1,11 +1,12 @@
 import * as baseStyled from "styled-components";
-import { ITheme } from "./presets/theme";
+import { Theme } from "./presets/theme";
 
 const {
   default: styledTyped,
   ThemeProvider,
-  keyframes
-} = baseStyled as baseStyled.ThemedStyledComponentsModule<ITheme>;
+  keyframes,
+  css
+} = baseStyled as baseStyled.ThemedStyledComponentsModule<Theme>;
 
-export { ThemeProvider, keyframes };
+export { ThemeProvider, keyframes, css };
 export default styledTyped;
