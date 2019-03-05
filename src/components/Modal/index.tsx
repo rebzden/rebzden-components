@@ -1,39 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import styledTyped from "../../styled";
-import { topDown } from '../../styles/animations/movement';
+import { ModalBackground } from "./modal-background";
+import { ModalContent } from "./modal-content";
 
-interface ModalProps {
-  open: boolean;
-}
-const ModalBackground = styledTyped.div<ModalProps>`
-    ${props => !props.open && "display:none"}
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-`;
-const ModalContent = styledTyped.div`
-    position: relative;
-    background-color: #fefefe;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: ${topDown};
-    animation-duration: 0.2s;
-    margin: 15% auto;
-    padding: 20px;
-`;
+export type ModalState = "opening" | "closing" | null;
 interface Props {
   onClose: () => void;
   open: boolean;
 }
-export class Modal extends React.Component<Props> {
+interface State {
+  prevOpen: boolean;
+  change: ModalState;
+}
+export class Modal extends React.Component<Props, State> {
   el: HTMLDivElement;
   root: HTMLBodyElement;
   background: React.RefObject<HTMLDivElement>;
@@ -42,6 +21,10 @@ export class Modal extends React.Component<Props> {
     this.root = document.getElementsByTagName("body")[0];
     this.el = document.createElement("div");
     this.background = React.createRef();
+    this.state = {
+      prevOpen: this.props.open,
+      change: null
+    };
   }
   componentDidMount() {
     this.root.appendChild(this.el);
@@ -49,20 +32,48 @@ export class Modal extends React.Component<Props> {
   }
   handleBackgroundClick = (event: MouseEvent) => {
     if (event.target === this.background.current) {
-      this.props.onClose();
+      this.setState({
+        change: "closing"
+      });
       event.stopPropagation();
     }
   };
+  animationEnd = (e: React.AnimationEvent) => {
+    if (this.state.change == "closing") {
+      this.props.onClose();
+    }
+  };
+  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+    let change = prevState.change;
+    if (!nextProps.open && prevState.prevOpen) {
+      change = "closing";
+    } else if (nextProps.open && !prevState.prevOpen) {
+      change = "opening";
+    }
+    return {
+      change,
+      prevOpen: nextProps.open
+    };
+  }
   componentWillUnmount() {
     this.root.removeChild(this.el);
     this.root.removeEventListener("click", this.handleBackgroundClick);
   }
+
   render() {
     const { open } = this.props;
+    const { change } = this.state;
     return ReactDOM.createPortal(
-      <ModalBackground ref={this.background} open={open}>
-        <ModalContent>{this.props.children}</ModalContent>
-      </ModalBackground>,
+      open && (
+        <ModalBackground
+          ref={this.background}
+          open={open}
+          onAnimationEnd={this.animationEnd}
+          change={change}
+        >
+          <ModalContent change={change}>{this.props.children}</ModalContent>
+        </ModalBackground>
+      ),
       this.el
     );
   }

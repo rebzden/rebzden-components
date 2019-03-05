@@ -4,6 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { Modal } from "./";
 import { Button } from "../Button";
 import { State, Store } from "@sambego/storybook-state";
+import { Card } from "../Card";
 
 const store = new Store({
   modal1: false,
@@ -19,13 +20,7 @@ storiesOf("Modal", module).add("Simple modal", () => {
               open={state.modal1}
               onClose={() => store.set({ modal1: false })}
             >
-              Modal first content
-            </Modal>
-            <Modal
-              open={state.modal2}
-              onClose={() => store.set({ modal2: false })}
-            >
-              Modal second content
+              <Card>Hello Button</Card>
             </Modal>
           </React.Fragment>
         )}
@@ -36,13 +31,6 @@ storiesOf("Modal", module).add("Simple modal", () => {
         }}
       >
         Toggle first modal
-      </Button>
-      <Button
-        onClick={() => {
-          store.set({ modal2: true });
-        }}
-      >
-        Toggle second modal
       </Button>
     </div>
   );
