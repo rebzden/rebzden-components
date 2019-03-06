@@ -1,5 +1,5 @@
 const path = require('path');
-module.exports = (baseConfig, env, config) => {
+module.exports = ({ config, mode }) => {
   config.resolve.modules = [
     ...(config.resolve.modules || []),
     path.resolve(__dirname, '../src')
