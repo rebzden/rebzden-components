@@ -52,7 +52,7 @@ addParameters({
     viewports: newViewports,
   },
   backgrounds: [
-    { name: "white", value: "#ffffff"},
+    { name: "white", value: "#ffffff", default: true},
     { name: "black", value: "#000000"},
     { name: "twitter", value: "#00aced"},
     { name: "facebook", value: "#3b5998" }
