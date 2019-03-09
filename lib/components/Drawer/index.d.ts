@@ -7,7 +7,7 @@ interface State {
     prevOpen: boolean;
     opening?: boolean;
 }
-export declare class Modal extends React.Component<Props, State> {
+export declare class Drawer extends React.Component<Props, State> {
     el: HTMLDivElement;
     root: HTMLBodyElement;
     background: React.RefObject<HTMLDivElement>;

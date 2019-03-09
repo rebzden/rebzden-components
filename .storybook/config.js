@@ -1,14 +1,21 @@
 import { addDecorator, configure, addParameters } from "@storybook/react";
 import { themes } from "@storybook/theming";
+import { theme } from "./theme";
 import { DefaultTheme, DarkTheme } from "../src/presets";
 import { withThemes } from "storybook-styled-components";
+import { withThemesProvider } from "storybook-addon-styled-component-theme";
 
 const req = require.context("../src/components", true, /\.stories\.js$/);
 
-const componentThemes = {
-  "Default theme": DefaultTheme,
-  "Dark Theme": DarkTheme
-};
+const componentThemes = [
+  {
+    name: "Default",
+    ...DefaultTheme
+  },
+  { name: "Dark", ...DarkTheme }
+];
+addDecorator(withThemesProvider(componentThemes));
+
 const newViewports = {
   iphone5: {
     name: "Iphone 5/SE",
@@ -49,23 +56,21 @@ const newViewports = {
 
 addParameters({
   viewport: {
-    viewports: newViewports,
+    viewports: newViewports
   },
   backgrounds: [
-    { name: "white", value: "#ffffff", default: true},
-    { name: "black", value: "#000000"},
-    { name: "twitter", value: "#00aced"},
+    { name: "white", value: "#ffffff", default: true },
+    { name: "black", value: "#000000" },
+    { name: "twitter", value: "#00aced" },
     { name: "facebook", value: "#3b5998" }
   ]
 });
-// now add the decorator
-addDecorator(withThemes(componentThemes));
 
 // Option defaults.
 addParameters({
   options: {
     name: "Rebzden",
-    theme: themes.dark
+    theme
   }
 });
 // done!
