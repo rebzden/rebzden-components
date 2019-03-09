@@ -1,11 +1,12 @@
 import React from "react";
 
 import { storiesOf } from "@storybook/react";
-import { Hamburger } from "./";
+import { Hamburger, CloseIcon, HamburgerIcon, Arrow } from "./";
 import { Store, State } from "@sambego/storybook-state";
 
 const store = new Store({
-  open: false
+  open: false,
+  arrow: false,
 });
 storiesOf("Hamburger", module).add("Hamburger", () => {
   return (
@@ -19,6 +20,14 @@ storiesOf("Hamburger", module).add("Hamburger", () => {
                 store.set({ open: !state.open });
               }}
             />
+            <Arrow
+              open={state.arrow}
+              onClick={() => {
+                store.set({ arrow: !state.arrow });
+              }}
+            />
+            <HamburgerIcon/>
+            <CloseIcon/>
           </React.Fragment>
         )}
       </State>

@@ -1,5 +1,5 @@
 import styled from "../../styled";
-import { fadeOut, fadeIn } from "styles/animations/appear";
+import { fadeOut, fadeIn } from "../../styles/animations/appear";
 
 interface ModalBackgroundProps {
   open: boolean;

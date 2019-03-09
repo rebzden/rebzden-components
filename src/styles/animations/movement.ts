@@ -13,6 +13,6 @@ export const leftRight = keyframes`
     to {left: 0; opacity: 1}
 `;
 export const rightLeft = keyframes`
-    from {right: -300px; opacity: 0}
-    to {right: 0; opacity: 1}
+    from {left: 0}
+    to {left: -300px}
 `;
