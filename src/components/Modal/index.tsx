@@ -3,14 +3,13 @@ import ReactDOM from "react-dom";
 import { ModalBackground } from "./modal-background";
 import { ModalContent } from "./modal-content";
 
-export type ModalState = "opening" | "closing" | null;
 interface Props {
   onClose: () => void;
   open: boolean;
 }
 interface State {
   prevOpen: boolean;
-  change: ModalState;
+  opening?: boolean;
 }
 export class Modal extends React.Component<Props, State> {
   el: HTMLDivElement;
@@ -22,8 +21,7 @@ export class Modal extends React.Component<Props, State> {
     this.el = document.createElement("div");
     this.background = React.createRef();
     this.state = {
-      prevOpen: this.props.open,
-      change: null
+      prevOpen: this.props.open
     };
   }
   componentDidMount() {
@@ -33,25 +31,25 @@ export class Modal extends React.Component<Props, State> {
   handleBackgroundClick = (event: MouseEvent) => {
     if (event.target === this.background.current) {
       this.setState({
-        change: "closing"
+        opening: false
       });
       event.stopPropagation();
     }
   };
   animationEnd = (e: React.AnimationEvent) => {
-    if (this.state.change == "closing") {
+    if (!this.state.opening) {
       this.props.onClose();
     }
   };
   static getDerivedStateFromProps(nextProps: Props, prevState: State) {
-    let change = prevState.change;
+    let opening = prevState.opening;
     if (!nextProps.open && prevState.prevOpen) {
-      change = "closing";
+      opening = false;
     } else if (nextProps.open && !prevState.prevOpen) {
-      change = "opening";
+      opening = true;
     }
     return {
-      change,
+      opening,
       prevOpen: nextProps.open
     };
   }
@@ -62,16 +60,16 @@ export class Modal extends React.Component<Props, State> {
 
   render() {
     const { open } = this.props;
-    const { change } = this.state;
+    const { opening } = this.state;
     return ReactDOM.createPortal(
       open && (
         <ModalBackground
           ref={this.background}
           open={open}
           onAnimationEnd={this.animationEnd}
-          change={change}
+          opening={opening}
         >
-          <ModalContent change={change}>{this.props.children}</ModalContent>
+          <ModalContent opening={opening}>{this.props.children}</ModalContent>
         </ModalBackground>
       ),
       this.el

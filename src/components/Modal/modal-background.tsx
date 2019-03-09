@@ -1,10 +1,9 @@
 import styled from "../../styled";
-import { ModalState } from ".";
 import { fadeOut, fadeIn } from "styles/animations/appear";
 
 interface ModalBackgroundProps {
   open: boolean;
-  change: ModalState;
+  opening?: boolean;
 }
 
 export const ModalBackground = styled.div<ModalBackgroundProps>`
@@ -21,7 +20,7 @@ export const ModalBackground = styled.div<ModalBackgroundProps>`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
-  animation-name: ${props => (props.change == "opening" ? fadeIn : fadeOut)};
+  animation-name: ${props => (props.opening ? fadeIn : fadeOut)};
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 `;
