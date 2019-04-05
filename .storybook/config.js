@@ -1,23 +1,77 @@
-import { addDecorator, configure } from "@storybook/react";
-import React from "react";
-import { ThemeProvider } from "styled-components";
-import { themes } from "../src/themes";
-import { select,withKnobs } from "@storybook/addon-knobs";
+import { addDecorator, configure, addParameters } from "@storybook/react";
+import { themes } from "@storybook/theming";
+import { theme } from "./theme";
+import { DefaultTheme, DarkTheme } from "../src/presets";
+import { withThemes } from "storybook-styled-components";
 
 const req = require.context("../src/components", true, /\.stories\.js$/);
-const label = "Theme";
-const options = {
-  Default: "default",
-  Dark: "dark"
+
+const componentThemes = {
+    "Default": DefaultTheme,
+    "Dark": DarkTheme
 };
-const defaultValue = "default";
-const groupId = "THEME_SELECT";
+addDecorator(withThemes(componentThemes));
+
+const newViewports = {
+  iphone5: {
+    name: "Iphone 5/SE",
+    styles: {
+      width: "320px",
+      height: "568px"
+    }
+  },
+  iphone6: {
+    name: "Iphone 6/7/8",
+    styles: {
+      width: "375px",
+      height: "667px"
+    }
+  },
+  iphoneX: {
+    name: "Iphone X",
+    styles: {
+      width: "375px",
+      height: "812px"
+    }
+  },
+  ipad: {
+    name: "Ipad",
+    styles: {
+      width: "768px",
+      height: "1024px"
+    }
+  },
+  ipadPro: {
+    name: "Ipad Pro",
+    styles: {
+      width: "1024px",
+      height: "1366px"
+    }
+  }
+};
+
+addParameters({
+  viewport: {
+    viewports: newViewports
+  },
+  backgrounds: [
+    { name: "white", value: "#ffffff", default: true },
+    { name: "black", value: "#000000" },
+    { name: "twitter", value: "#00aced" },
+    { name: "facebook", value: "#3b5998" }
+  ]
+});
+
+// Option defaults.
+addParameters({
+  options: {
+    name: "Rebzden",
+    theme
+  }
+});
+// done!
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
-addDecorator((story, context) => {
-  const storyWithKnobs = withKnobs(story, context)
-  const theme = select(label, options, defaultValue, groupId);
-  return <ThemeProvider theme={themes[theme]}>{storyWithKnobs}</ThemeProvider>;
-});
+
 configure(loadStories, module);

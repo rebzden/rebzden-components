@@ -1,6 +1,12 @@
-import baseStyled, { ThemedStyledInterface } from 'styled-components';
-import { ITheme } from 'themes/theme';
+import * as baseStyled from "styled-components";
+import { Theme } from "./presets/theme";
 
-const styled = baseStyled as ThemedStyledInterface<ITheme>;
+const {
+  default: styledTyped,
+  ThemeProvider,
+  keyframes,
+  css
+} = baseStyled as baseStyled.ThemedStyledComponentsModule<Theme>;
 
-export default styled;
+export { ThemeProvider, keyframes, css };
+export default styledTyped;

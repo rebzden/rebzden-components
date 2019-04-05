@@ -8,7 +8,6 @@
     "removeComments": true,
     "sourceMap": true,
     "jsx": "react",
-    "rootDir": "./src",
     "keyofStringsOnly": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -18,12 +17,9 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "allowJs": true,
+    "declaration": true,
     "outDir": "./lib"
   },
-  "include": [
-    "src/index.ts"
-  ],
   "exclude": [
     "**/*.test.ts*"
   ]
