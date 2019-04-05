@@ -1,18 +1,55 @@
 import styled, { css } from "../../styled";
-const colPercent = (col = 0) => col > 0 ? `${(col * 100) / 24}%;` : "0%";
-const createMediaCss = (defaultBreak, resProp, resBreak) => css `
+
+interface ColSetting {
+  span?: number;
+  order?: number;
+  offset?: number;
+  push?: number;
+  pull?: number;
+  hidden?: boolean;
+}
+
+interface ColProps extends ColSetting {
+  xs?: number | ColSetting;
+  sm?: number | ColSetting;
+  md?: number | ColSetting;
+  lg?: number | ColSetting;
+  xl?: number | ColSetting;
+  xxl?: number | ColSetting;
+  smBreak?: number;
+  mdBreak?: number;
+  lgBreak?: number;
+  xlBreak?: number;
+  xxlBreak?: number;
+}
+const colPercent = (col: number = 0) =>
+  col > 0 ? `${(col * 100) / 24}%;` : "0%";
+
+interface ColSetting {
+  span?: number;
+  order?: number;
+  offset?: number;
+  push?: number;
+  pull?: number;
+  hidden?: boolean;
+}
+const createMediaCss = (
+  defaultBreak: number,
+  resProp: number | ColSetting,
+  resBreak?: number
+) => css`
   @media (min-width: ${resBreak ? resBreak : defaultBreak}px) {
     ${getColProps(resProp)}
   }
 `;
-const getColProps = (setting) => `
+const getColProps = (setting: ColSetting | number) => `
   ${typeof setting === "number"
     ? `${setting ? `width: ${colPercent(setting)}` : ""}`
     : `
     ${parseColToStyle(setting)}
 `}
 `;
-const parseColToStyle = (setting) => `
+const parseColToStyle = (setting: ColSetting) => `
   ${setting.hidden ? "display:none;" : ""}
   ${setting.span ? "width:" + colPercent(setting.span) : ""}
   ${setting.order ? "order:" + setting.order : ""}
@@ -20,7 +57,7 @@ const parseColToStyle = (setting) => `
   ${setting.push ? "left:" + colPercent(setting.push) : ""}
   ${setting.pull ? "right:" + colPercent(setting.pull) : ""}
 `;
-const StyledCol = styled.div `
+const StyledCol = styled.div<ColProps>`
   float: left;
   position: relative;
   display: block;
@@ -38,5 +75,5 @@ const StyledCol = styled.div `
   ${props => (props.xl ? createMediaCss(1200, props.xl, props.xlBreak) : "")}
   ${props => (props.xxl ? createMediaCss(1200, props.xxl, props.xxlBreak) : "")}
 `;
+
 export const Col = StyledCol;
-//# sourceMappingURL=Col.js.map

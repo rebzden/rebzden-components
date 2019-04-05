@@ -3,18 +3,14 @@ import { themes } from "@storybook/theming";
 import { theme } from "./theme";
 import { DefaultTheme, DarkTheme } from "../src/presets";
 import { withThemes } from "storybook-styled-components";
-import { withThemesProvider } from "storybook-addon-styled-component-theme";
 
 const req = require.context("../src/components", true, /\.stories\.js$/);
 
-const componentThemes = [
-  {
-    name: "Default",
-    ...DefaultTheme
-  },
-  { name: "Dark", ...DarkTheme }
-];
-addDecorator(withThemesProvider(componentThemes));
+const componentThemes = {
+    "Default": DefaultTheme,
+    "Dark": DarkTheme
+};
+addDecorator(withThemes(componentThemes));
 
 const newViewports = {
   iphone5: {
