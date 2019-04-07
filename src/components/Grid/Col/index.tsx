@@ -1,4 +1,4 @@
-import styled, { css } from "../../styled";
+import styled, { css } from "../../../styled";
 
 interface ColSetting {
   span?: number;

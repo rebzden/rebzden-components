@@ -1,4 +1,4 @@
-import styled, { css } from "../../../styled";
+import styled from "../../../styled";
 
 interface ContainerProps {
   size: number | "auto" | "initial" | "inherit";

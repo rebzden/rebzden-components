@@ -27,5 +27,5 @@ interface ColSetting {
     pull?: number;
     hidden?: boolean;
 }
-export declare const Col: import("styled-components").StyledComponent<"div", import("../../presets/theme").Theme, ColProps, never>;
+export declare const Col: import("styled-components").StyledComponent<"div", import("../../../presets/theme").Theme, ColProps, never>;
 export {};
