@@ -1,6 +1,20 @@
 import styled, { css } from "../../../styled";
 
-interface RowProps {
+interface RowProps extends RowSettings{
+  xs?: RowSettings;
+  sm?: RowSettings;
+  md?: RowSettings;
+  lg?: RowSettings;
+  xl?: RowSettings;
+  xxl?: RowSettings;
+  smBreak?: number;
+  mdBreak?: number;
+  lgBreak?: number;
+  xlBreak?: number;
+  xxlBreak?: number;
+}
+
+interface RowSettings {
   flex?: boolean;
   justify?: JustifyType;
   align?: AlignType;
@@ -18,17 +32,28 @@ type JustifyType =
   | "center"
   | "flex-end";
 
-const flexStyles = css<RowProps>`
-  display: flex;
-  ${props => (props.direction ? `flex-direction: ${props.direction}` : "")};
-  ${props => (props.wrap ? `flex-wrap: ${props.wrap}` : "")}
-  ${props => (props.justify ? `justify-content: ${props.justify}` : "")}
-  ${props => (props.align ? `align-items: ${props.align}` : "")}
+const getRowProps = (setting: RowSettings) => `
+  ${setting.flex ? `display: flex;`: 'display: inline-block'}
+  ${setting.direction ? `flex-direction: ${setting.direction}` : ""}
+  ${setting.wrap ? `flex-wrap: ${setting.wrap}` : ""}
+  ${setting.justify ? `justify-content: ${setting.justify}` : ""}
+  ${setting.align ? `align-items: ${setting.align}` : ""}
   &:before,
   &:after {
     display: flex;
   }
 `;
+
+const createMediaCss = (
+  defaultBreak: number,
+  resProp: RowSettings,
+  resBreak?: number
+) => css`
+  @media (min-width: ${resBreak ? resBreak : defaultBreak}px) {
+    ${getRowProps(resProp)}
+  }
+`;
+
 
 const StyledRow = styled.div<RowProps>`
   position: relative;
@@ -45,8 +70,12 @@ const StyledRow = styled.div<RowProps>`
   &:after {
     clear: both;
   }
-  //Conditionally append flex styles
-  ${props => (props.flex ? flexStyles: "display: block")} 
+  ${props => (props.xs ? getRowProps(props.xs) : getRowProps(props))}
+  ${props => (props.sm ? createMediaCss(576, props.sm, props.smBreak) : "")}
+  ${props => (props.md ? createMediaCss(768, props.md, props.lgBreak) : "")}
+  ${props => (props.lg ? createMediaCss(992, props.lg, props.lgBreak) : "")}
+  ${props => (props.xl ? createMediaCss(1200, props.xl, props.xlBreak) : "")}
+  ${props => (props.xxl ? createMediaCss(1600, props.xxl, props.xxlBreak) : "")}
 `;
 export const Row = StyledRow;
 

@@ -26,7 +26,7 @@ storiesOf("Grid", module)
     </>
   ))
   .add("Responsive", () => (
-    <Row flex wrap="wrap">
+    <Row flex wrap="wrap" direction="column" justify="center" align="center" sm={{direction: "row", flex: true, justify: "space-around"}}>
       <Col xs={24} md={12} lg={6}>
         Col
       </Col>
