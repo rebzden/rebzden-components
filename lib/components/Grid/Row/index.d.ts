@@ -1,4 +1,17 @@
-interface RowProps {
+interface RowProps extends RowSettings {
+    xs?: RowSettings;
+    sm?: RowSettings;
+    md?: RowSettings;
+    lg?: RowSettings;
+    xl?: RowSettings;
+    xxl?: RowSettings;
+    smBreak?: number;
+    mdBreak?: number;
+    lgBreak?: number;
+    xlBreak?: number;
+    xxlBreak?: number;
+}
+interface RowSettings {
     flex?: boolean;
     justify?: JustifyType;
     align?: AlignType;
